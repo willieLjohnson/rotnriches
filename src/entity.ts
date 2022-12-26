@@ -1,3 +1,4 @@
+
 export class Entity {
   x: number;
   y: number;

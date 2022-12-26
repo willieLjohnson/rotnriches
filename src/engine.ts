@@ -1,8 +1,9 @@
-import * as ROT from 'rot-js';
+import * as ROT from "rot-js";
 
-import { handleInput } from './input-handler';
-import { Entity } from './entity';
-import { GameMap } from './game-map';
+import { generateDungeon } from "./procgen";
+import { handleInput } from "./input-handler";
+import { Entity } from "./entity";
+import { GameMap } from "./game-map";
 
 export class Engine {
   public static readonly WIDTH = 80;
@@ -26,16 +27,16 @@ export class Engine {
       forceSquareRatio: true,
     });
 
-    this.gameMap = new GameMap(
+    this.gameMap = generateDungeon(
       Engine.MAP_WIDTH,
       Engine.MAP_HEIGHT,
-      this.display,
+      this.display
     );
 
     const container = this.display.getContainer()!;
     document.body.appendChild(container);
 
-    window.addEventListener('keydown', (event) => {
+    window.addEventListener("keydown", (event) => {
       this.update(event);
     });
     this.render();
@@ -51,9 +52,11 @@ export class Engine {
   update(event: KeyboardEvent) {
     this.display.clear();
     const action = handleInput(event);
+
     if (action) {
       action.perform(this, this.player);
     }
+
     this.render();
   }
 }

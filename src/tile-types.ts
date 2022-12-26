@@ -11,7 +11,7 @@ export interface Tile {
 }
 
 export const FLOOR_TILE: Tile = {
-  walkable: false,
+  walkable: true,
   transparent: true,
   dark: { chars: ' ', fg: '#fff', bg: '#333377' },
 };
