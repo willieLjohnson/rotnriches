@@ -26,6 +26,34 @@ class RectangularRoom {
       this.tiles[y] = row;
     }
   }
+
+  public get center(): [number, number] {
+    const centerX = this.x + Math.floor(this.width / 2);
+    const centerY = this.y + Math.floor(this.height / 2);
+    return [centerX, centerY];
+  }
+}
+
+function* connectRooms(
+  a: RectangularRoom,
+  b: RectangularRoom
+): Generator<[number, number], void, void> {
+  let current = a.center;
+  const end = b.center;
+
+  let horizontal = Math.random() < 0.5;
+  let axisIndex = horizontal ? 0 : 1;
+
+  while (current[0] !== end[0] || current[1] !== end[1]) {
+    const direction = Math.sign(end[axisIndex] - current[axisIndex]);
+    if (direction !== 0) {
+      current[axisIndex] += direction;
+      yield current;
+    } else {
+      axisIndex = axisIndex === 0 ? 1 : 0;
+      yield current;
+    }
+  }
 }
 
 export function generateDungeon(
@@ -39,6 +67,10 @@ export function generateDungeon(
 
   dungeon.addRoom(room1.x, room1.y, room1.tiles);
   dungeon.addRoom(room2.x, room2.y, room2.tiles);
+
+  for (let tile of connectRooms(room1, room2)) {
+    dungeon.tiles[tile[1]][tile[0]] = { ...FLOOR_TILE };
+  }
 
   return dungeon;
 }
