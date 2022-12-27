@@ -10,7 +10,8 @@ export class GameMap {
   constructor(
     public width: number,
     public height: number,
-    public display: Display
+    public display: Display,
+    public entities: Entity[]
   ) {
     this.width = width;
     this.height = height;
@@ -54,7 +55,7 @@ export class GameMap {
     }
 
     const fov = new ROT.FOV.PreciseShadowcasting(this.lightPasses.bind(this));
-    fov.compute(player.x, player.y, 8, (x, y, _r, visibility) => {
+    fov.compute(player.x, player.y, 25, (x, y, _r, visibility) => {
       if (visibility === 1) {
         this.tiles[y][x].visible = true;
         this.tiles[y][x].seen = true;
@@ -80,9 +81,11 @@ export class GameMap {
           fg = tile.dark.fg;
           bg = tile.dark.bg;
         }
-
         this.display.draw(x, y, chars, fg, bg);
       }
     }
+    this.entities.forEach((e) => {
+      this.display.draw(e.x, e.y, e.chars, e.fg, e.bg);
+    });
   }
 }

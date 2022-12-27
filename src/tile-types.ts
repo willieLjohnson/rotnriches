@@ -18,8 +18,8 @@ export const FLOOR_TILE: Tile = {
   transparent: true,
   visible: false,
   seen: false,
-  dark: { chars: " ", fg: "#fff", bg: "#333377" },
-  light: { chars: " ", fg: "#fff", bg: "#c8b432" },
+  dark: { chars: " ", fg: "#fff", bg: "#333333" },
+  light: { chars: " ", fg: "#fff", bg: "#777777" },
 };
 
 export const WALL_TILE: Tile = {
@@ -27,6 +27,6 @@ export const WALL_TILE: Tile = {
   transparent: false,
   visible: false,
   seen: false,
-  dark: { chars: " ", fg: "#fff", bg: "#000066" },
-  light: { chars: " ", fg: "#fff", bg: "#826e32" },
+  dark: { chars: " ", fg: "#fff", bg: "#111111" },
+  light: { chars: " ", fg: "#fff", bg: "#823300" },
 };

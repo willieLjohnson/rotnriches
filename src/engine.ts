@@ -6,19 +6,17 @@ import { Entity } from "./entity";
 import { GameMap } from "./game-map";
 
 export class Engine {
-  public static readonly WIDTH = 80;
-  public static readonly HEIGHT = 50;
-  public static readonly MAP_WIDTH = 80;
-  public static readonly MAP_HEIGHT = 45;
+  public static readonly WIDTH = 120;
+  public static readonly HEIGHT = 60;
+  public static readonly MAP_WIDTH = 115;
+  public static readonly MAP_HEIGHT = 55;
 
   display: ROT.Display;
   gameMap: GameMap;
 
   player: Entity;
-  entities: Entity[];
 
-  constructor(entities: Entity[], player: Entity) {
-    this.entities = entities;
+  constructor(player: Entity) {
     this.player = player;
 
     this.display = new ROT.Display({
@@ -30,9 +28,9 @@ export class Engine {
     this.gameMap = generateDungeon(
       Engine.MAP_WIDTH,
       Engine.MAP_HEIGHT,
-      10,
-      10,
-      10,
+      200,
+      1,
+      20,
       this.player,
       this.display
     );
@@ -49,9 +47,6 @@ export class Engine {
 
   render() {
     this.gameMap.render();
-    this.entities.forEach((e) => {
-      this.display.draw(e.x, e.y, e.char, e.fg, e.bg);
-    });
   }
 
   update(event: KeyboardEvent) {
