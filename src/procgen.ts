@@ -42,10 +42,19 @@ class RectangularRoom {
     const centerY = this.y + Math.floor(this.height / 2);
     return [centerX, centerY];
   }
+
+  get bounds(): Bounds {
+    return {
+      x1: this.x,
+      y1: this.y,
+      x2: this.x + this.width,
+      y2: this.y + this.height,
+    };
+  }
 }
 
 function generateRandomNumber(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function* connectRooms(
@@ -76,6 +85,7 @@ export function generateDungeon(
   maxRooms: number,
   minSize: number,
   maxSize: number,
+  maxMonsters: number,
   player: Entity,
   display: Display
 ): GameMap {
@@ -96,6 +106,7 @@ export function generateDungeon(
     }
 
     dungeon.addRoom(x, y, newRoom.tiles);
+    placeEntities(newRoom, dungeon, maxMonsters);
     rooms.push(newRoom);
   }
 
@@ -113,4 +124,31 @@ export function generateDungeon(
   }
 
   return dungeon;
+}
+
+function placeEntities(
+  room: RectangularRoom,
+  dungeon: GameMap,
+  maxMonsters: number
+) {
+  const numberOfMonstersToAdd = generateRandomNumber(0, maxMonsters);
+  for (let i = 0; i < numberOfMonstersToAdd; i++) {
+    const bounds = room.bounds;
+    const x = generateRandomNumber(bounds.x1 + 1, bounds.x2 - 1);
+    const y = generateRandomNumber(bounds.y1 + 1, bounds.y2 - 1);
+    if (!dungeon.entities.some((e) => e.x == x && e.y == y)) {
+      if (Math.random() < 0.8) {
+        console.log("orc");
+      } else {
+        console.log("troll");
+      }
+    }
+  }
+}
+
+interface Bounds {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
 }

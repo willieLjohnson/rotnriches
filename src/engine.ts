@@ -8,8 +8,12 @@ import { GameMap } from "./game-map";
 export class Engine {
   public static readonly WIDTH = 120;
   public static readonly HEIGHT = 60;
+  public static readonly MAX_ROOMS = 200;
+  public static readonly MIN_ROOM_SIZE = 1;
+  public static readonly MAX_ROOM_SIZE = 20;
   public static readonly MAP_WIDTH = 115;
   public static readonly MAP_HEIGHT = 55;
+  public static readonly MAX_MONSTERS_PER_ROOM = 2;
 
   display: ROT.Display;
   gameMap: GameMap;
@@ -28,10 +32,11 @@ export class Engine {
     this.gameMap = generateDungeon(
       Engine.MAP_WIDTH,
       Engine.MAP_HEIGHT,
-      200,
-      1,
-      20,
-      this.player,
+      Engine.MAX_ROOMS,
+      Engine.MIN_ROOM_SIZE,
+      Engine.MAX_ROOM_SIZE,
+      Engine.MAX_MONSTERS_PER_ROOM,
+      player,
       this.display
     );
 
