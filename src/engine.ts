@@ -30,8 +30,8 @@ export class Engine {
     this.gameMap = generateDungeon(
       Engine.MAP_WIDTH,
       Engine.MAP_HEIGHT,
-      5,
-      5,
+      10,
+      10,
       10,
       this.player,
       this.display
@@ -43,6 +43,7 @@ export class Engine {
     window.addEventListener("keydown", (event) => {
       this.update(event);
     });
+    this.gameMap.updateFov(this.player);
     this.render();
   }
 
@@ -60,7 +61,7 @@ export class Engine {
     if (action) {
       action.perform(this, this.player);
     }
-
+    this.gameMap.updateFov(this.player);
     this.render();
   }
 }
