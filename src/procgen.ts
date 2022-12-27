@@ -1,7 +1,7 @@
 import { FLOOR_TILE, WALL_TILE, Tile } from "./tile-types";
 import { GameMap } from "./game-map";
 import { Display } from "rot-js";
-import { Entity } from "./entity";
+import { Entity, spawnOrc, spawnTroll } from "./entity";
 
 class RectangularRoom {
   tiles: Tile[][];
@@ -138,9 +138,9 @@ function placeEntities(
     const y = generateRandomNumber(bounds.y1 + 1, bounds.y2 - 1);
     if (!dungeon.entities.some((e) => e.x == x && e.y == y)) {
       if (Math.random() < 0.8) {
-        console.log("orc");
+        dungeon.entities.push(spawnOrc(x, y));
       } else {
-        console.log("troll");
+        dungeon.entities.push(spawnTroll(x, y));
       }
     }
   }
