@@ -63,6 +63,12 @@ export class GameMap {
     });
   }
 
+  getBlockingEntityAtLocation(x: number, y: number): Entity | undefined {
+    return this.entities.find(
+      (e) => e.blocksMovement && e.x === x && e.y === y
+    );
+  }
+
   render() {
     for (let y = 0; y < this.tiles.length; y++) {
       const row = this.tiles[y];
