@@ -26,6 +26,10 @@ export class GameMap {
     }
   }
 
+  public get nonPlayerEntities(): Entity[] {
+    return this.entities.filter((e) => e.name !== "Player");
+  }
+
   isInBounds(x: number, y: number) {
     return 0 <= x && x < this.width && 0 <= y && y < this.height;
   }

@@ -50,6 +50,12 @@ export class Engine {
     this.render();
   }
 
+  handleEnemyTurns() {
+    this.gameMap.nonPlayerEntities.forEach((e) => {
+      console.log(e.name);
+    });
+  }
+
   render() {
     this.gameMap.render();
   }
@@ -61,6 +67,7 @@ export class Engine {
     if (action) {
       action.perform(this, this.player);
     }
+    this.handleEnemyTurns();
     this.gameMap.updateFov(this.player);
     this.render();
   }
