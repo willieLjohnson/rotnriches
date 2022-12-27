@@ -30,6 +30,10 @@ export class Engine {
     this.gameMap = generateDungeon(
       Engine.MAP_WIDTH,
       Engine.MAP_HEIGHT,
+      5,
+      5,
+      10,
+      this.player,
       this.display
     );
 
